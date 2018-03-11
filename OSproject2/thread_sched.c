@@ -4,9 +4,14 @@
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
+#include <assert.h>
+#include <dirent.h>
 #include "thread_tasks.h"
 #include "thread_sched.h"
-#define NUM_THREADS 3 
+#include "linkedlist.h"
+#include "csvparser.h"
+
+#define NUM_THREADS 3
 #define NUM_TO_RUN	100000
 
 
@@ -19,7 +24,12 @@ char g_argc;
 char **g_argv;
 int prio = 0;
 
+
+
+
 int main(int argc, char **argv){
+    loadFiles();
+
 	g_argc = (char) malloc(1000);
 	g_argv = (char**) malloc(1000);
 	g_argv = argv;
@@ -107,6 +117,7 @@ int main(int argc, char **argv){
 				terminate_thread(2);
 				return 0;
 			}
+		default:break;
 	}
 
     return 0;
@@ -124,10 +135,13 @@ void set_schedule_policy(void){
 		pthread_attr_setschedpolicy(&attr, SCHED_FIFO);
 	else pthread_attr_setschedpolicy(&attr, SCHED_OTHER);
 }
+
+
 /* we give different priority to different thread, [1..99]; larger = higher */
 void create_taskone_thread(int myprio){
 		myprio = (myprio + 1) * 5;
 		schedparam.sched_priority = myprio;
+		assert(sched_get_priority_min(2) <= myprio && sched_get_priority_max(2) >= myprio);
 		if ((errcode = pthread_attr_setschedparam(&attr, &schedparam)) != 0)
 		{
 			fprintf(stderr, "Error setting priority: ");
@@ -164,6 +178,7 @@ void create_taskone_thread(int myprio){
 void create_tasktwo_thread(int myprio){
 	myprio = (myprio + 1) * 5;
 	schedparam.sched_priority = myprio;
+		assert(sched_get_priority_min(2) <= myprio && sched_get_priority_max(2) >= myprio);
 	if ((errcode = pthread_attr_setschedparam(&attr, &schedparam)) != 0)
 	{
 		fprintf(stderr, "Error setting priority: ");
@@ -200,6 +215,7 @@ void create_tasktwo_thread(int myprio){
 void create_taskthree_thread(int myprio){
 	myprio = (myprio + 1) * 5;
 	schedparam.sched_priority = myprio;
+	assert(sched_get_priority_min(2) <= myprio && sched_get_priority_max(2) >= myprio);
 	if ((errcode = pthread_attr_setschedparam(&attr, &schedparam)) != 0)
 	{
 		fprintf(stderr, "Error setting priority: ");
@@ -282,3 +298,4 @@ char thread_count(){
 	}
 	else return 'S';
 }
+

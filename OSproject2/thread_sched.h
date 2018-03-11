@@ -13,5 +13,6 @@ extern void get_default_attr(void);
 extern void get_single_sched_policy(int id);
 extern void terminate_thread(int id);
 extern char thread_count();
+void loadFiles();
 
 #endif

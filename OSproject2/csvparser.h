@@ -6,25 +6,26 @@
 
 #endif //PROJECT2_CSVPARSER_H
 
-typedef struct CSVCell {
+struct CSVCell {
     char* data;
     int isEmpty;
     int isNumeric;
     int isAlphanumeric;
 };
 
-typedef struct CSVLine {
+struct CSVLine {
     struct CSVCell* line;
     int len;
 };
 
-typedef struct CSVFile {
+struct CSVFile {
     struct CSVLine* lines;
     int len;
+    char* fileName;
 };
 
-struct CSVFile *readFile(FILE *file);
+struct CSVFile readFile(FILE *file, char* name);
 
-struct CSVCell * getCell(char* token);
+struct CSVCell getCell(char* token);
 
-struct CSVLine * readLine(FILE* file);
+struct CSVLine readLine(FILE* file);
