@@ -3,7 +3,8 @@
 #include <time.h>
 #include <unistd.h>
 #include <dirent.h>
-#include <libnet.h>
+#include <stdlib.h>
+#include <memory.h>
 #include "csvparser.h"
 #include "linkedlist.h"
 #include "thread_tasks.h"

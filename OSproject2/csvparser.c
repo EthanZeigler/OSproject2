@@ -1,5 +1,9 @@
-#include <libnet.h>
+
 #include <stdbool.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include <strings.h>
+#include <string.h>
 #include "csvparser.h"
 
 
@@ -58,10 +62,24 @@ struct CSVLine readLine(FILE* file) {
     return line;
 }
 
+int IsValidNumber(char * string)
+{
+    for(int i = 0; i < strlen( string ); i ++)
+    {
+        //ASCII value of 0 = 48, 9 = 57. So if value is outside of numeric range then fail
+        //Checking for negative sign "-" could be added: ASCII value 45.
+        if ((string[i] < 48 && !(string[i] == 46 || string[i] == 45)) || string[i] > 57)
+            return 0;
+    }
+
+    return 1;
+}
+
 struct CSVCell getCell(char* token) {
     struct CSVCell newCell;
 
-    if (isnumber(token)) {
+
+    if (IsValidNumber(token)) {
         newCell.data = strdup(token);
         newCell.isNumeric = true;
         newCell.isAlphanumeric = false;
