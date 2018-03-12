@@ -41,7 +41,7 @@ struct CSVLine readLine(FILE* file) {
         line.len = 0;
         line.line = lineData;
 
-        free(nextLine);
+        //free(nextLine);
         return line;
     } else {
         cell = getCell(token);

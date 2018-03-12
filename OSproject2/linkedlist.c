@@ -53,7 +53,7 @@ void linkedlist_append_char(struct Node* head, char* val) {
 }
 
 void linkedlist_destroy(struct Node* head) {
-    free(head);
+    //free(head);
 }
 
 void linkedlist_init(struct Node* head) {

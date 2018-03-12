@@ -29,3 +29,7 @@ struct CSVFile readFile(FILE *file, char* name);
 struct CSVCell getCell(char* token);
 
 struct CSVLine readLine(FILE* file);
+
+struct CSVCell getCell(char* token);
+
+int IsValidNumber(char * string);
