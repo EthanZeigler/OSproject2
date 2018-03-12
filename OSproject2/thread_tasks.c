@@ -183,7 +183,7 @@ void *taskthree (void *param)
 average of the numbers of rows and columns of all files. */
 
     char* buffer = malloc(sizeof(char) * 3000);
-    buffer[0] = "0";
+    buffer[0] = 0;
 
 	int rowCount = 0;
 	int fileTotal = 0;
