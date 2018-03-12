@@ -5,6 +5,7 @@
 #include <strings.h>
 #include <string.h>
 #include "csvparser.h"
+#include <errno.h>
 
 
 struct CSVFile readFile(FILE *file, char* name) {
@@ -28,7 +29,7 @@ struct CSVFile readFile(FILE *file, char* name) {
 
 struct CSVLine readLine(FILE* file) {
     size_t size = MAX_LINE_SIZE;
-    struct CSVCell lineData[MAX_NUM_OF_CELLS];
+    struct CSVCell* lineData = malloc(sizeof(struct CSVCell) * MAX_NUM_OF_CELLS);
     char* nextLine = malloc(sizeof(char) * MAX_LINE_SIZE);
     struct CSVLine line;
     getline(&nextLine, &size, file);

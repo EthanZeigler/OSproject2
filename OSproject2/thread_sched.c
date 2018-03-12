@@ -25,12 +25,9 @@ char **g_argv;
 int prio = 0;
 
 
-
-
 int main(int argc, char **argv){
     loadFiles();
 
-	g_argc = (char) malloc(1000);
 	g_argv = (char**) malloc(1000);
 	g_argv = argv;
 	get_default_attr();
